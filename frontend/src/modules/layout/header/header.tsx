@@ -1,12 +1,12 @@
+import { Menu } from "lucide-react"
+import { useState } from "react"
+import { createPortal } from "react-dom"
 import { Link } from "react-router"
+import Button from "../../../shared/ui/button/button"
+import Contacts from "../../../shared/ui/contacts/contacts"
 import Container from "../../../shared/ui/container/container"
 import styles from "./header.module.css"
-import Button from "../../../shared/ui/button/button"
-import { Menu } from "lucide-react"
-import Contacts from "./contacts"
-import { createPortal } from "react-dom"
 import HeaderMobileMenu from "./headerMobileMenu"
-import { useState } from "react"
 export default function Header() {
 	const [show, setShow] = useState(false)
 	return (
@@ -45,7 +45,9 @@ export default function Header() {
 						</div>
 					</div>
 					<div className={styles.burgerMenu}>
-						<Contacts />
+						<div className={styles.mobileContacts}>
+							<Contacts />
+						</div>
 						<Button onClick={() => setShow(true)} variant='icon'>
 							<Menu />
 						</Button>

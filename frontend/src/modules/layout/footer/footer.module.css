@@ -1,0 +1,31 @@
+.footer {
+	background: var(--color-black);
+  padding-bottom: 16px;
+}
+.footerLogo {
+	color: var(--color-white);
+}
+.footerContent {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	color: var(--color-white);
+}
+
+.footerSocials {
+	display: flex;
+	gap: 16px;
+	margin-top: 16px;
+}
+
+@media (max-width: 390px) {
+  .footerContent {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .footerSocials {
+    justify-content: center;
+  }
+}

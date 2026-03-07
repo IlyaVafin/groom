@@ -1,8 +1,8 @@
-import { Link } from "react-router"
-import styles from "./header.module.css"
-import Button from "../../../shared/ui/button/Button"
-import Contacts from "./contacts"
 import { X } from "lucide-react"
+import { Link } from "react-router"
+import Contacts from "../../../shared/ui/contacts/contacts"
+import styles from "./header.module.css"
+import Button from "../../../shared/ui/button/button"
 export default function HeaderMobileMenu({ onClose, show }: { onClose: () => void, show: boolean }) {
 	return (
 		<div className={`${styles.headerModal} ${!show ? styles.hide : styles.show}`}>
