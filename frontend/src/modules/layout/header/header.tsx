@@ -1,7 +1,14 @@
 import { Link } from "react-router"
 import Container from "../../../shared/ui/container/container"
 import styles from "./header.module.css"
+import Button from "../../../shared/ui/button/Button"
+import { Menu } from "lucide-react"
+import Contacts from "./contacts"
+import { createPortal } from "react-dom"
+import HeaderMobileMenu from "./headerMobileMenu"
+import { useState } from "react"
 export default function Header() {
+	const [show, setShow] = useState(false)
 	return (
 		<header>
 			<Container>
@@ -10,6 +17,7 @@ export default function Header() {
 						<Link to='/'>
 							<img width='170' height='170' src='/svg/logo.svg' alt='логотип' />
 						</Link>
+						<p>Groomer</p>
 					</div>
 					<div className={styles.headerInfo}>
 						<nav className={styles.headerNav}>
@@ -21,20 +29,33 @@ export default function Header() {
 									<Link to='/login'>Войти</Link>
 								</li>
 								<li className={`${styles.headerItem} ${styles.signUp}`}>
-									<Link to='/register'>Зарегистрироваться</Link>
+									<Button
+										className={`${styles.signUp}`}
+										variant='black'
+										href='/register'
+									>
+										Зарегистрироваться
+									</Button>
 								</li>
 							</ul>
 						</nav>
 						<div className={styles.headerContacts}>
 							<div className={styles.line}></div>
-							<div className=''>
-								<p className={styles.phone}>+7 904 760 88 90</p>
-								<p>Казань, ул. Пушкина 43</p>
-							</div>
+							<Contacts />
 						</div>
+					</div>
+					<div className={styles.burgerMenu}>
+						<Contacts />
+						<Button onClick={() => setShow(true)} variant='icon'>
+							<Menu />
+						</Button>
 					</div>
 				</div>
 			</Container>
+			{createPortal(
+				<HeaderMobileMenu show={show} onClose={() => setShow(false)} />,
+				document.body,
+			)}
 		</header>
 	)
 }
