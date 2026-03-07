@@ -1,0 +1,53 @@
+.headerContainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.headerItem {
+	font-size: 15px;
+	transition: color 0.3s ease;
+}
+.headerItem:hover {
+	color: var(--color-blue);
+}
+.headerList {
+	display: flex;
+	align-items: center;
+	gap: 36px;
+}
+.headerInfo {
+	display: flex;
+	align-items: center;
+	gap: 24px;
+}
+.headerContacts {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.line {
+	height: 64px;
+	width: 1px;
+	background: var(--color-black);
+}
+
+.signUp {
+	padding: 15px 12px;
+	background: var(--color-black);
+	color: var(--color-white);
+	border-radius: var(--radius-sm);
+	font-weight: 500;
+	transition: transform 0.3s ease;
+}
+.signUp a {
+	cursor: default;
+}
+.signUp:hover {
+	color: var(--color-white);
+	transform: scale(1.01);
+}
+
+.phone {
+	margin-bottom: 4px;
+}

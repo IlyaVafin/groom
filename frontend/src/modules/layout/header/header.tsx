@@ -1,4 +1,5 @@
-import Container from "../../shared/ui/container/container"
+import { Link } from "react-router"
+import Container from "../../../shared/ui/container/container"
 import styles from "./header.module.css"
 export default function Header() {
 	return (
@@ -6,26 +7,28 @@ export default function Header() {
 			<Container>
 				<div className={styles.headerContainer}>
 					<div className={styles.logo}>
-						<img width='170' height='170' src='/svg/logo.svg' alt='логотип' />
+						<Link to='/'>
+							<img width='170' height='170' src='/svg/logo.svg' alt='логотип' />
+						</Link>
 					</div>
 					<div className={styles.headerInfo}>
 						<nav className={styles.headerNav}>
 							<ul className={styles.headerList}>
 								<li className={styles.headerItem}>
-									<a href=''>Личный кабинет</a>
+									<Link to='/personal-account'>Личный кабинет</Link>
 								</li>
 								<li className={styles.headerItem}>
-									<a href=''>Зарегистрироваться</a>
+									<Link to='/login'>Войти</Link>
 								</li>
-								<li className={styles.headerItem}>
-									<a href=''>Войти</a>
+								<li className={`${styles.headerItem} ${styles.signUp}`}>
+									<Link to='/register'>Зарегистрироваться</Link>
 								</li>
 							</ul>
 						</nav>
 						<div className={styles.headerContacts}>
 							<div className={styles.line}></div>
 							<div className=''>
-								<p>+7 904 760 88 90</p>
+								<p className={styles.phone}>+7 904 760 88 90</p>
 								<p>Казань, ул. Пушкина 43</p>
 							</div>
 						</div>

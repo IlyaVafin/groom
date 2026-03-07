@@ -1,24 +1,29 @@
 :root {
-  --color-black: #1E1E1E;
-  --color-gray: #00000099;
-  --color-white: #fff;
-  --color-orange: #f97316;
-  --color-border: #d4a373;
+	--color-black: #1e1e1e;
+	--color-gray: #00000099;
+	--color-white: #fff;
+	--color-orange: #f97316;
+	--color-border: #d4a373;
+	--color-blue: #259aef;
+
+	--radius-sm: 8px;
+	--radius-lg: 24px;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+	font-family: "Inter", sans-serif;
 }
 
 a {
-  text-decoration: none;
+	text-decoration: none;
+	color: inherit;
 }
 li {
-  list-style-type: none;
+	list-style-type: none;
 }
