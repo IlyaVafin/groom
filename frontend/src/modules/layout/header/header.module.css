@@ -6,9 +6,6 @@
 		transform: translateY(0);
 	}
 }
-.header {
-	background-color: var(--color-gainsboro);
-}
 .headerContainer {
 	display: flex;
 	align-items: center;
