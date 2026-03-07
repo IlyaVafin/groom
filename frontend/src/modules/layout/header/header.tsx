@@ -1,7 +1,7 @@
 import { Link } from "react-router"
 import Container from "../../../shared/ui/container/container"
 import styles from "./header.module.css"
-import Button from "../../../shared/ui/button/Button"
+import Button from "../../../shared/ui/button/button"
 import { Menu } from "lucide-react"
 import Contacts from "./contacts"
 import { createPortal } from "react-dom"
@@ -10,7 +10,7 @@ import { useState } from "react"
 export default function Header() {
 	const [show, setShow] = useState(false)
 	return (
-		<header>
+		<header className={styles.header}>
 			<Container>
 				<div className={styles.headerContainer}>
 					<div className={styles.logo}>
