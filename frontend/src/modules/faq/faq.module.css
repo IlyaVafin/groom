@@ -1,0 +1,52 @@
+.faqBlock {
+	background: var(--color-gainsboro);
+	padding: 48px 0;
+}
+
+.faqList {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin-top: 24px;
+}
+.faqItem {
+	display: flex;
+	justify-content: space-between;
+	background: var(--color-white);
+	padding: 16px;
+	border-radius: var(--radius-lg);
+}
+
+.answer {
+	background: var(--color-black);
+	color: var(--color-white);
+	border-radius: var(--radius-lg);
+	padding: 0;
+	height: 0;
+	padding: 0px;
+}
+
+.show {
+	height: auto;
+	opacity: 1;
+	transition: all 1s ease;
+	width: auto;
+	padding: 16px;
+	margin-top: 8px;
+}
+
+.answerParagraph {
+	display: none;
+}
+
+.icon {
+  transform: rotate(0);
+  transition: all 0.5s ease;
+  flex-shrink: 0;
+}
+
+.rotate {
+  transform: rotate(45deg);
+  transition: transform 0.5s ease;
+  flex-shrink: 0;
+}

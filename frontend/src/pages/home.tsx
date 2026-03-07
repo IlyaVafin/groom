@@ -1,5 +1,6 @@
 import Advantages from "../modules/advantages/advantages";
 import Examples from "../modules/examples/examples";
+import FAQ from "../modules/faq/faq";
 import Hero from "../modules/hero/hero";
 import Header from "../modules/layout/header/header";
 import PriceList from "../modules/price-list/price-list";
@@ -13,6 +14,7 @@ export default function Home(){
       <Examples/>
       <Advantages/>
       <PriceList/>
+      <FAQ/>
     </main>
     </>
   )
