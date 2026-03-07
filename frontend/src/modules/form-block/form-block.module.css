@@ -1,0 +1,118 @@
+.formBlock {
+	margin-top: 120px;
+	margin-bottom: 120px;
+}
+.formContent {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.heading {
+	margin-bottom: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+}
+.heading svg {
+	margin-top: 7px;
+	flex-shrink: 0;
+}
+
+.form {
+	max-width: 500px;
+	width: 100%;
+}
+
+.formCard {
+	padding: 24px;
+}
+
+.formFields {
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
+	gap: 32px;
+}
+
+.formField {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.formField input {
+	height: 48px;
+	padding-left: 24px;
+	font-size: 18px;
+}
+.cat {
+	border-radius: var(--radius-lg);
+}
+.registerButton {
+	padding: 16px 0;
+	width: 100%;
+	border-radius: var(--radius-sm);
+	font-size: 18px;
+	margin-top: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 16px;
+	transition: transform 0.5s ease;
+}
+
+.registerButton:hover {
+	transform: scale(1.01);
+}
+
+.confirmPassword {
+	margin-top: 32px;
+}
+
+.checkboxField {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+.checkboxField {
+	position: relative;
+	padding-left: 16px;
+}
+.checkboxField input {
+	appearance: none;
+}
+.checkboxField input::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 16px;
+	height: 16px;
+	background: transparent;
+	border: 1px solid var(--color-orange);
+}
+.checkboxField input:checked::before {
+	content: "";
+	width: 20px;
+	height: 22px;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: -2px;
+	background-image: url("./../../../public/svg/check.svg");
+	color: white;
+	background-repeat: no-repeat;
+	z-index: 9;
+}
+.checkboxField input:checked::after {
+	background-color: var(--color-orange);
+}
+
+@media (max-width: 480px) {
+	.heading svg {
+		display: none;
+	}
+}

@@ -1,0 +1,79 @@
+import { Cat, MoveRight } from "lucide-react"
+import Button from "../../shared/ui/button/button"
+import Container from "../../shared/ui/container/container"
+import Heading from "../../shared/ui/heading/heading"
+import Input from "../../shared/ui/input/input"
+import styles from "./form-block.module.css"
+import Card from "../../shared/ui/card/card"
+export default function FormBlock() {
+	return (
+		<section className={styles.formBlock}>
+			<Container>
+				<Heading className={styles.heading} as='h2'>
+					Присоединяйтесь к нам <Cat height={36} width={36} />
+				</Heading>
+				<div className={styles.formContent}>
+					<form className={styles.form}>
+						<Card className={styles.formCard}>
+							<div className={styles.formFields}>
+								<div className={styles.formField}>
+									<label htmlFor='full-name'>ФИО</label>
+									<Input
+										variant='white'
+										type='text'
+										id='full-name'
+										autoComplete='name'
+									/>
+								</div>
+								<div className={styles.formField}>
+									<label htmlFor='login'>Логин</label>
+									<Input variant='white' type='text' id='login' />
+								</div>
+								<div className={styles.formField}>
+									<label htmlFor='email'>Почта</label>
+									<Input
+										variant='white'
+										type='email'
+										autoComplete='email'
+										id='email'
+									/>
+								</div>
+								<div className=''>
+									<div className={styles.formField}>
+										<label htmlFor='password'>Пароль</label>
+										<Input
+											variant='white'
+											type='password'
+											id='password'
+											autoComplete='new-password'
+										/>
+									</div>
+									<div
+										className={`${styles.formField} ${styles.confirmPassword}`}
+									>
+										<label htmlFor='confirm-password'>Подтвердите пароль</label>
+										<Input
+											variant='white'
+											id='confirm-password'
+											type='password'
+											placeholder=''
+											autoComplete='current-password'
+										/>
+									</div>
+								</div>
+								<div className={styles.checkboxField}>
+									<input type='checkbox' id="personal-data"/>
+									<label htmlFor='personal-data'>Я даю согласие на обработку <u>персональных данных</u></label>
+								</div>
+							</div>
+							<Button className={styles.registerButton} variant='black'>
+								Зарегистрироваться
+								<MoveRight />
+							</Button>
+						</Card>
+					</form>
+				</div>
+			</Container>
+		</section>
+	)
+}

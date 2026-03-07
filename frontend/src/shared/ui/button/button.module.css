@@ -1,6 +1,7 @@
 .blackButton {
   background: var(--color-black);
   color: var(--color-white);
+  border: none;
 }
 
 .iconButton {

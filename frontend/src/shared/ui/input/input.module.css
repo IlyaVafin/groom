@@ -1,0 +1,12 @@
+.whiteInput {
+	border: 1px solid var(--color-orange);
+	border-radius: var(--radius-sm);
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.whiteInput::placeholder {
+	color: var(--color-gray);
+}
