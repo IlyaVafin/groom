@@ -3,7 +3,8 @@ import styles from "./input.module.css"
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	variant: "white" | "black"
 	className?: string
-	icon?: ReactNode
+	icon?: ReactNode,
+	error?: string
 }
 export default function Input({
 	variant,

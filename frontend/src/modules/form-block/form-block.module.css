@@ -37,6 +37,7 @@
 }
 
 .formField {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
@@ -46,6 +47,13 @@
 	padding-left: 24px;
 	font-size: 18px;
 }
+.errorLabel {
+	position: absolute;
+	color: red;
+	bottom: -20px;
+	left: 0;
+	font-size: 14px;
+}
 .cat {
 	border-radius: var(--radius-lg);
 }
@@ -54,7 +62,7 @@
 	width: 100%;
 	border-radius: var(--radius-sm);
 	font-size: 18px;
-	margin-top: 20px;
+	margin-top: 32px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
