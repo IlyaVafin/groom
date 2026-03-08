@@ -1,6 +1,7 @@
 from core.db import AsyncSession
 from core.models import User
 from schemas.user import CreateUser
+from sqlalchemy import select
 class UserRepository:
   def __init__(self, session: AsyncSession):
     self.session = session 
@@ -12,3 +13,8 @@ class UserRepository:
     return {
       "id": f"{user_db.id}"
     }
+    
+  async def get_user_by_login(self, login: str):
+      stmt = await self.session.execute(select(User).where(User.login == login))
+      user = stmt.scalar_one_or_none()
+      return user
