@@ -10,5 +10,6 @@ def get_user_repository(session: Annotated[AsyncSession, Depends(get_session)]):
 
 def get_auth_service(user_repository: Annotated[UserRepository, Depends(get_user_repository)]):
   return AuthService(user_repository=user_repository)
+
 def get_user_service(user_repository: Annotated[UserRepository, Depends(get_user_repository)],    auth_service: Annotated[AuthService, Depends(get_auth_service)]):
   return UserService(user_repository=user_repository, auth_service=auth_service)

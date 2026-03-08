@@ -8,3 +8,7 @@ class CreateUser(Base):
   email: EmailStr
   password: str 
   repeat_password: str
+  
+class LoginUser(Base):
+  login: Annotated[str, Field(pattern=r'^[a-zA-Z\-]+$')] = "Login"
+  password: str

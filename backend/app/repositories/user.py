@@ -15,6 +15,17 @@ class UserRepository:
     }
     
   async def get_user_by_login(self, login: str):
-      stmt = await self.session.execute(select(User).where(User.login == login))
-      user = stmt.scalar_one_or_none()
-      return user
+      try:
+        stmt = await self.session.execute(select(User).where(User.login == login))
+        user = stmt.scalar_one_or_none()
+        if not user:
+          raise ValueError("User not found")
+        return {
+          "id": f"{user.id}",
+          "email": f"{user.email}",
+          "password": f"{user.password}"
+        }
+      except ValueError as e:
+        raise ValueError(str(e))
+    
+     
