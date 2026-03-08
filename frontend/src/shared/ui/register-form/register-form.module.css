@@ -22,9 +22,10 @@
 }
 .formField input {
 	height: 48px;
-	padding-left: 24px;
-	font-size: 18px;
+	padding-left: 16px;
+	font-size: 16px;
 }
+
 .errorLabel {
 	position: absolute;
 	color: red;

@@ -26,6 +26,7 @@ export default function RegisterForm() {
 							variant='white'
 							type='text'
 							id='full-name'
+              placeholder="Иван Иванов Иванович"
 							autoComplete='name'
 							name='name'
 						/>
@@ -33,7 +34,7 @@ export default function RegisterForm() {
 					</div>
 					<div className={styles.formField}>
 						<label htmlFor='login'>Логин</label>
-						<Input name='login' variant='white' type='text' id='login' />
+						<Input placeholder="Ivan" name='login' variant='white' type='text' id='login' />
 						{loginError && <p className={styles.errorLabel}>{loginError}</p>}
 					</div>
 					<div className={styles.formField}>
@@ -42,6 +43,7 @@ export default function RegisterForm() {
 							variant='white'
 							type='email'
 							autoComplete='email'
+              placeholder="johndoe@gmail.com"
 							id='email'
 							name='email'
 						/>
@@ -56,6 +58,7 @@ export default function RegisterForm() {
 								id='password'
 								autoComplete='new-password'
 								name='new-password'
+                placeholder="********"
 							/>
 							{passwordError && (
 								<p className={styles.errorLabel}>{passwordError}</p>
@@ -67,7 +70,7 @@ export default function RegisterForm() {
 								variant='white'
 								id='confirm-password'
 								type='password'
-								placeholder=''
+								placeholder='********'
 								autoComplete='current-password'
 								name='repeat-password'
 							/>

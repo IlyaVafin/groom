@@ -1,0 +1,41 @@
+.loginForm {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 24px;
+	width: 100%;
+	min-height: 100vh;
+}
+.heading {
+	color: var(--color-orange);
+}
+.loginFormCard {
+	padding: 24px;
+	max-width: 448px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	width: 100%;
+}
+.formField {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.formInput {
+	padding-left: 24px;
+	height: 48px;
+	font-size: 18px;
+}
+
+.loginSubmitButton {
+	padding: 12px;
+	border-radius: var(--radius-sm);
+	transition: transform 0.5s ease;
+}
+
+
+.disabled {
+	opacity: 0.5;
+}
