@@ -23,7 +23,7 @@ class User(Base):
   superuser: Mapped[bool] = mapped_column(nullable=False, default=False)
   created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
   orders: Mapped[List["Order"] | None] = relationship(back_populates="user")
-
+  refresh_tokens: Mapped[List["RefreshToken"]] = relationship(back_populates="user")
 class Order(Base):
   __tablename__ = "orders"
   id: Mapped[Optional[UUID]] = mapped_column(default=uuid4, primary_key=True)
@@ -34,3 +34,10 @@ class Order(Base):
   user_id: Mapped[UUID] = mapped_column(ForeignKey("users.id"))
   user: Mapped["User"] = relationship(back_populates="orders")
   
+class RefreshToken(Base):
+  __tablename__ = "refresh_tokens"
+  id: Mapped[UUID] = mapped_column(default=uuid4, primary_key=True)
+  expires_at: Mapped[datetime] = mapped_column(nullable=False)
+  revoke_at: Mapped[Optional[datetime]]
+  user_id: Mapped[UUID] = mapped_column(ForeignKey("users.id"))
+  user: Mapped["User"] = relationship(back_populates="refresh_tokens")

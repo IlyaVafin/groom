@@ -6,6 +6,7 @@ class Settings(BaseSettings):
   secret_key: SecretStr
   algorithm: str 
   access_token_expire_minutes: str
+  refresh_token_expire_days: str
   model_config = SettingsConfigDict(env_file=".env")
 @lru_cache
 def get_settings():
