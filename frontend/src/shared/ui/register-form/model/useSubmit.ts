@@ -53,15 +53,15 @@ export const useSubmit = () => {
 		passwordError,
 		repeatPasswordError,
 	} = errors
-  return {
-    checkboxError,
-    emailError,
-    loginError,
-    nameError,
-    passwordError,
-    repeatPasswordError,
-    submitRegisterForm,
-    setIsChecked,
-    isChecked
-  }
+	return {
+		checkboxError,
+		emailError,
+		loginError,
+		nameError,
+		passwordError,
+		repeatPasswordError,
+		submitRegisterForm,
+		setIsChecked,
+		isChecked,
+	}
 }

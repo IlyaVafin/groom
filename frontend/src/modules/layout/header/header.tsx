@@ -6,9 +6,11 @@ import Button from "../../../shared/ui/button/button"
 import Contacts from "../../../shared/ui/contacts/contacts"
 import Container from "../../../shared/ui/container/container"
 import styles from "./header.module.css"
-import HeaderMobileMenu from "./headerMobileMenu"
+import HeaderMobileMenu from "./header-mobile-menu"
+import HeaderModal from "./header-modal"
 export default function Header() {
 	const [show, setShow] = useState(false)
+	const [showModal, setShowModal] = useState(false)
 	return (
 		<header className={styles.header}>
 			<Container>
@@ -32,7 +34,7 @@ export default function Header() {
 									<Button
 										className={`${styles.signUp}`}
 										variant='black'
-										href='/register'
+										onClick={() => setShowModal(true)}
 									>
 										Зарегистрироваться
 									</Button>
@@ -58,6 +60,7 @@ export default function Header() {
 				<HeaderMobileMenu show={show} onClose={() => setShow(false)} />,
 				document.body,
 			)}
+			{showModal && <>{createPortal(<HeaderModal onClose={() => setShowModal(false)}/>, document.body)}</>}
 		</header>
 	)
 }

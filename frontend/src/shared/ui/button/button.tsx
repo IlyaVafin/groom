@@ -1,7 +1,7 @@
-import type { HTMLAttributes, ReactNode } from "react"
+import type { ButtonHTMLAttributes, ReactNode } from "react"
 import { Link } from "react-router"
 import styles from "./button.module.css"
-interface ButtonProps extends HTMLAttributes<HTMLElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLElement> {
 	children: ReactNode
 	variant: "black" | "icon"
 	href?: string

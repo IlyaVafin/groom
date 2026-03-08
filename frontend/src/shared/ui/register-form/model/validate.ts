@@ -13,10 +13,7 @@ export function validateFields(
 ) {
 	let notHasError = true
 	if (!nameRegex.test(name)) {
-		addError(
-			"Имя должно содержать только кирилические буквы и проблелы",
-			"nameError",
-		)
+		addError("Только кирилические буквы и пробелы", "nameError")
 		notHasError = false
 	} else {
 		resetError("nameError")
@@ -25,10 +22,7 @@ export function validateFields(
 	if (!loginRegex.test(login)) {
 		console.log(login)
 
-		addError(
-			"Логин должен содержать только латинские буквы и дефис",
-			"loginError",
-		)
+		addError("Только латинские буквы и дефис", "loginError")
 		notHasError = false
 	} else {
 		resetError("loginError")
@@ -62,5 +56,13 @@ export function validateFields(
 		resetError("checkboxError")
 		notHasError = true
 	}
-	return notHasError
+	return (
+		notHasError &&
+		name.length > 0 &&
+		login.length > 0 &&
+		email.length > 0 &&
+		repeatPassword.length > 0 &&
+		password.length > 0 &&
+		isChecked
+	)
 }
