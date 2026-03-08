@@ -1,5 +1,5 @@
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import DateTime, func, String, ForeignKey
+from sqlalchemy import DateTime, func, String, ForeignKey, Enum
 from typing import Optional, List
 from uuid import UUID, uuid4 
 from datetime import datetime
@@ -8,10 +8,7 @@ import enum
 class Base(DeclarativeBase):
   pass 
 
-class OrderStatus(enum.Enum):
-  NEW = "Новая"
-  PROCESSING = "Обработка данных"
-  READY = "Услуга оказана"
+
 
 class User(Base):
   __tablename__ = "users"
@@ -27,7 +24,7 @@ class User(Base):
 class Order(Base):
   __tablename__ = "orders"
   id: Mapped[Optional[UUID]] = mapped_column(default=uuid4, primary_key=True)
-  status: Mapped[OrderStatus] = mapped_column(nullable=False)
+  status: Mapped[str] = mapped_column(nullable=False)
   nickname: Mapped[str] = mapped_column(nullable=False, index=True)
   result_photo: Mapped[Optional[str]]
   photo: Mapped[str] = mapped_column(nullable=False)

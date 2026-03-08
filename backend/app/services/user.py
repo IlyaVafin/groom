@@ -7,7 +7,6 @@ class UserService():
     self.auth_service = auth_service
   async def create_user(self, user: CreateUser):
     try:
-      
       hashed_password = self.auth_service.get_password_hash(user.password)
       return await self.user_repository.create_user(CreateUser(
       full_name=user.full_name, 

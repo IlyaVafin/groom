@@ -50,6 +50,10 @@ class AuthService():
       raise ValueError("Невалидный токен")
     except ExpiredSignatureError:
       raise ValueError("Токен истек")
+  
+  # def verify_access_token(self, token: str | byte):
+  #   try:
+  #     payload = jwt.decode
     
   
   async def refresh_access_token(self, refresh_token: str, access_token: str):
@@ -102,6 +106,18 @@ class AuthService():
       }
     except ValueError as e:
       return str(e)
+    
+  def get_id_from_token(self, token: str):
+    try:
+      
+      payload = jwt.decode(jwt=token, key=get_settings().secret_key.get_secret_value(), 
+                         algorithms=[get_settings().algorithm])
+      return payload.get("id")
+    except InvalidTokenError:
+      raise ValueError("Невалидный токен")
+    except ExpiredSignatureError:
+      raise ValueError("Токен просрочен")
+
   
   async def revoke_all_user_tokens(self, user_id: str):
     return await self.auth_repository.revoke_all_user_tokens(user_id=user_id)
