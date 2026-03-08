@@ -22,7 +22,7 @@ class User(Base):
   password: Mapped[str] = mapped_column(nullable=False)
   superuser: Mapped[bool] = mapped_column(nullable=False, default=False)
   created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-  orders: Mapped[List["Order"]] = relationship(back_populates="user")
+  orders: Mapped[List["Order"] | None] = relationship(back_populates="user")
 
 class Order(Base):
   __tablename__ = "orders"
