@@ -11,8 +11,8 @@ async def lifespan(app: FastAPI):
   yield
 app = FastAPI(lifespan=lifespan)
 
-app.include_router(user_router, prefix="/api")
-app.include_router(auth_router, prefix="/api")
+app.include_router(user_router, prefix="/api", tags=["User"])
+app.include_router(auth_router, prefix="/api", tags=["Auth"])
 @app.get("/")
 def get_root():
   return FileResponse("./img/kot.jpg")

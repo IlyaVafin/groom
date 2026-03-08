@@ -16,12 +16,18 @@ class AuthService():
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, get_settings().secret_key.get_secret_value(), algorithm=get_settings().algorithm)
     return encoded_jwt
-  
+
   def get_current_user(self, token: str | bytes):
     payload = jwt.decode(jwt=token, 
                          key=get_settings().secret_key.get_secret_value(), 
                          algorithms=[get_settings().algorithm])
-    print(payload)
+    return payload
+  
+  def is_super_user(self, token: str | bytes):
+    payload =  jwt.decode(jwt=token, 
+                         key=get_settings().secret_key.get_secret_value(), 
+                         algorithms=[get_settings().algorithm])
+    return payload.get("superuser")
   
   def verify_password(self, plain_password, hashed_password):
     return self.password_hash.verify(password=plain_password, hash=hashed_password)
@@ -38,6 +44,10 @@ class AuthService():
         return False 
       if not self.verify_password(password, user.get("password")):
         return False 
-      return user
+      return {
+        "id": user.get("id"),
+        "login": user.get("login"),
+        "superuser": user.get("superuser")
+      }
     except ValueError as e:
       return str(e)

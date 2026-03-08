@@ -22,8 +22,9 @@ class UserRepository:
           raise ValueError("User not found")
         return {
           "id": f"{user.id}",
-          "email": f"{user.email}",
-          "password": f"{user.password}"
+          "login": f"{user.login}",
+          "password": f"{user.password}",
+          "superuser": f"{user.superuser}"
         }
       except ValueError as e:
         raise ValueError(str(e))
