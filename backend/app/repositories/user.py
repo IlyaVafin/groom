@@ -19,7 +19,7 @@ class UserRepository:
         stmt = await self.session.execute(select(User).where(User.login == login))
         user = stmt.scalar_one_or_none()
         if not user:
-          raise ValueError("User not found")
+          raise ValueError("Неккоректный логин или пароль")
         return {
           "id": f"{user.id}",
           "login": f"{user.login}",

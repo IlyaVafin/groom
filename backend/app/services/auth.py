@@ -109,7 +109,11 @@ class AuthService():
   async def get_me(self, access_token):
     try:
       payload = self.get_current_user(access_token)
-      return payload
+      return {
+        "id": payload.get("id"),
+        "login": payload.get("login"),
+        "superuser": payload.get("superuser")
+      }
     except InvalidTokenError:
       raise ValueError("Невалидный токен")
     except ExpiredSignatureError:

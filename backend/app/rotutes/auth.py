@@ -17,7 +17,7 @@ async def login(auth_serivce: Annotated[AuthService, Depends(get_auth_service)],
   refresh_token = await auth_serivce.create_refresh_token(user)
   response.set_cookie("access_token", access_token, max_age=1800, httponly=True)
   response.set_cookie("refresh_token", refresh_token, httponly=True)
-  return {"message": "Successfully login"}
+  return {"message": "Успешный вход"}
   
 @auth_router.get("/me")
 async def get_me(request: Request, auth_service: Annotated[AuthService, Depends(get_auth_service)]):
@@ -51,6 +51,6 @@ async def logout(response: Response, request: Request, auth_service: Annotated[A
     await auth_service.revoke_refresh_token(token=refresh_token)
     response.delete_cookie("access_token")
     response.delete_cookie("refresh_token")
-    return {"message": "Successfully logout"}
+    return {"message": "Успешный выход"}
   except ValueError as e:
     raise HTTPException(status_code=401, detail=str(e))
