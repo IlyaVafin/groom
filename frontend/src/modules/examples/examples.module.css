@@ -15,3 +15,9 @@
 .exampleItem img {
   border-radius: var(--radius-sm);
 }
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

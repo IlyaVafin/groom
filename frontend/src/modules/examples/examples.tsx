@@ -20,7 +20,7 @@ export default function Examples() {
 			</Heading>
 			<Container>
 				<ul className={styles.examplesList}>
-					{images && images.map((img, i) => (
+					{images.length > 0 && images.map((img, i) => (
 						<li key={i} className={styles.exampleItem}>
 							<img
 								width={300}
@@ -30,6 +30,7 @@ export default function Examples() {
 							/>
 						</li>
 					))}
+          {images.length === 0 && <p>Фотографии не найдены :(</p>}
 				</ul>
 			</Container>
 		</section>

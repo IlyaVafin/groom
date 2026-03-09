@@ -1,7 +1,7 @@
 import { errorHandler } from "../../../shared/api/errorHandler"
 import { instance } from "../../../shared/api/instance"
 
-export const getPhotosRequest = async () => {
+export const getPhotosRequest = async (): Promise<string[]> => {
   try {
     const response = await instance.get("/orders/images")
     return response.data
