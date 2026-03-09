@@ -17,7 +17,7 @@ class UserService():
       email=user.email, 
       password=hashed_password, repeat_password=user.repeat_password), superuser=False)
     except ValueError as e:
-      return ValueError(str(e))
+      raise ValueError(str(e))
     
   async def create_user_admin(self):
       password = self.settings.admin_password.get_secret_value()

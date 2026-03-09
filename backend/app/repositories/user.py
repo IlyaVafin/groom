@@ -2,6 +2,7 @@ from core.db import AsyncSession
 from core.models import User
 from schemas.user import CreateUser
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 class UserRepository:
   def __init__(self, session: AsyncSession):
     self.session = session 
@@ -9,12 +10,15 @@ class UserRepository:
     
   async def create_user(self, user: CreateUser, superuser: bool):
     user_db = User(full_name=user.full_name, login=user.login, email=user.email, password=user.password, superuser=superuser)
-    self.session.add(user_db)
-    await self.session.commit()
-    await self.session.refresh(user_db)
-    return {
-      "id": f"{user_db.id}"
-    }
+    try:
+      self.session.add(user_db)
+      await self.session.commit()
+      await self.session.refresh(user_db)
+      return {
+        "id": f"{user_db.id}"
+      }
+    except IntegrityError:
+      raise ValueError("Такой пользователь уже существует")
     
   async def get_user_by_login(self, login: str):
       try:

@@ -8,7 +8,10 @@ user_router = APIRouter()
 
 @user_router.post("/user")
 async def create_user(user: CreateUser, user_service: Annotated[UserService, Depends(get_user_service)]):
-  return await user_service.create_user(user)
+  try:
+    return await user_service.create_user(user)
+  except ValueError as e:
+    raise HTTPException(status_code=400, detail=str(e))
 
 @user_router.post("/user/admin")
 async def create_user_admin(api_key: str, settings: Annotated[Settings, Depends(get_settings)], user_service: Annotated[UserService, Depends(get_user_service)]):

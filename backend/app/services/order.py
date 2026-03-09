@@ -28,6 +28,13 @@ class OrderService:
       return order
     except ValueError as e:
       raise ValueError(str(e))
+  
+  async def delete_order(self, order_id: str, token: str):
+    try:
+      user_id = self.auth_service.get_id_from_token(token=token)
+      return await self.order_repository.delete_order(order_id=order_id, user_id=user_id)
+    except ValueError as e:
+      raise ValueError(str(e))
     
   
     

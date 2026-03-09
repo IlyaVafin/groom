@@ -23,7 +23,9 @@ async def create_order(request: Request,
     raise HTTPException(status_code=401, detail=str(e))
   
 @order_router.patch("/order/{id}")
-async def update_status(request: Request, order_service: Annotated[OrderService, Depends(get_order_service)], id: str, 
+async def update_status(request: Request, 
+                        order_service: Annotated[OrderService, Depends(get_order_service)], 
+                        id: str, 
                         file_service: Annotated[FileService, Depends(get_file_service)], result_photo: UploadFile | None = File(None), 
                         status: str = Form()):
   try:
@@ -36,7 +38,7 @@ async def update_status(request: Request, order_service: Annotated[OrderService,
       return await order_service.update_status(order_id=id, token=access_token, status=status)
   except ValueError as e:
     error = str(e)
-    if "не найден" in error:
+    if "не найдена" in error:
       raise HTTPException(status_code=404, detail=error)
     if "Изменение статуса" in error:
       raise HTTPException(status_code=400, detail=error)
@@ -47,6 +49,29 @@ async def update_status(request: Request, order_service: Annotated[OrderService,
     if "badly" in error:
       raise HTTPException(status_code=404, detail="Неккоректный UUID")
     raise HTTPException(status_code=400, detail=error)
+  
+@order_router.delete("/order/{id}")
+async def delete_order(order_service: Annotated[OrderService, Depends(get_order_service)], 
+                       id: str, 
+                       request: Request, ):
+  try:
+    is_uuid = UUID(id)
+    access_token = request.cookies.get("access_token")
+    return await order_service.delete_order(order_id=id, token=access_token)
+  except ValueError as e:
+    error = str(e)
+    if 'токен' in error.lower():
+      raise HTTPException(status_code=401, detail=error)
+    if 'не найдена' in error:
+      raise HTTPException(status_code=404, detail=error)
+    if 'не может быть удалена' in error:
+      raise HTTPException(status_code=400, detail=error)
+    if "badly" in error:
+      raise HTTPException(status_code=404, detail="Неккоректный UUID")
+    raise HTTPException(status_code=400, detail=error)
+    
+  
+  
 
 
   
