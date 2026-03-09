@@ -14,6 +14,19 @@ class OrderService:
       return await self.order_repository.create_order(order=order, user_id=user_id)
     except ValueError as e:
       raise ValueError(str(e))
+    
+  async def get_orders(self, token: str):
+    payload = self.auth_service.get_current_user(token=token)
+    user_id = payload.get("id")
+    superuser = await self.user_repository.is_super_user(user_id=user_id)
+    print(superuser)
+    if superuser == True:
+      orders = await self.order_repository.get_all_orders()
+      print(orders)
+      return orders
+    else:
+      orders = await self.order_repository.get_user_orders(user_id=user_id)
+      return orders
 
   async def update_status(self, order_id: str, token: str, status: str, path_to_image: str | None = None):
     try:

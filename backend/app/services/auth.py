@@ -72,10 +72,16 @@ class AuthService():
     await self.auth_repository.revoke_refresh_token(jti=jti)
 
   def get_current_user(self, token: str | bytes):
-    payload = jwt.decode(jwt=token, 
+    try:
+      
+      payload = jwt.decode(jwt=token, 
                          key=get_settings().secret_key.get_secret_value(), 
                          algorithms=[get_settings().algorithm])
-    return payload
+      return payload
+    except InvalidTokenError:
+      raise ValueError("Невалидный токен")
+    except ExpiredSignatureError:
+      raise ValueError("Токен истек")
   
 
   

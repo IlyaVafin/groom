@@ -18,6 +18,16 @@ class OrderRepository:
       "photo": order_db.photo,
       "status": order_db.status
     }
+    
+  async def get_user_orders(self, user_id: str):
+    stmt = await self.session.execute(select(Order).where(Order.user_id == user_id))
+    orders = stmt.scalars().all()
+    return orders
+  
+  async def get_all_orders(self):
+    stmt = await self.session.execute(select(Order))
+    orders = stmt.scalars().all()
+    return orders
 
   
   async def update_status(self, order_id: str, status: str, path_to_image: str):
