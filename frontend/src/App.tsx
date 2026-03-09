@@ -4,6 +4,7 @@ import LoginPage from "./pages/login"
 import PersonalAccountPage from "./pages/personal-account"
 
 const App = () => {
+	
 	return (
 		<Routes>
 			<Route path='/' element={<Home />} />

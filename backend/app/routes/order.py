@@ -28,10 +28,15 @@ async def create_order(request: Request,
 @order_router.get("/order")
 async def get_orders(request: Request, 
                      order_service: Annotated[OrderService, Depends(get_order_service)]):
-  access_token = request.cookies.get("access_token")
-  if not access_token:
-    raise HTTPException(status_code=401, detail="Невалидный токен")
-  return await order_service.get_orders(token=access_token)
+  try:
+    access_token = request.cookies.get("access_token")
+    if not access_token:
+      raise HTTPException(status_code=401, detail="Невалидный токен")
+    return await order_service.get_orders(token=access_token)
+  except ValueError as e:
+    if "токен" in str(e).lower():
+      raise HTTPException(status_code=401, detail=str(e))
+    
   
 @order_router.patch("/order/{id}")
 async def update_status(request: Request, 

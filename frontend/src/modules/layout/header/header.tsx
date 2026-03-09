@@ -8,9 +8,11 @@ import Container from "../../../shared/ui/container/container"
 import styles from "./header.module.css"
 import HeaderMobileMenu from "./header-mobile-menu"
 import HeaderModal from "./header-modal"
+import { useUserContext } from "../../../shared/context/user/useUserContext"
 export default function Header() {
 	const [show, setShow] = useState(false)
 	const [showModal, setShowModal] = useState(false)
+	const { user } = useUserContext()
 	return (
 		<header className={styles.header}>
 			<Container>
@@ -24,9 +26,11 @@ export default function Header() {
 					<div className={styles.headerInfo}>
 						<nav className={styles.headerNav}>
 							<ul className={styles.headerList}>
-								<li className={styles.headerItem}>
-									<Link to='/personal-account'>Личный кабинет</Link>
-								</li>
+								{user && (
+									<li className={styles.headerItem}>
+										<Link to='/personal-account'>Личный кабинет</Link>
+									</li>
+								)}
 								<li className={styles.headerItem}>
 									<Link to='/login'>Войти</Link>
 								</li>
@@ -60,7 +64,14 @@ export default function Header() {
 				<HeaderMobileMenu show={show} onClose={() => setShow(false)} />,
 				document.body,
 			)}
-			{showModal && <>{createPortal(<HeaderModal onClose={() => setShowModal(false)}/>, document.body)}</>}
+			{showModal && (
+				<>
+					{createPortal(
+						<HeaderModal onClose={() => setShowModal(false)} />,
+						document.body,
+					)}
+				</>
+			)}
 		</header>
 	)
 }
