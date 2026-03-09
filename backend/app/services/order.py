@@ -32,7 +32,6 @@ class OrderService:
     try:
       if status != "Новая" and status != "Услуга оказана" and status != "Обработка данных":
         raise ValueError("Неккоректный статус")
-
       user_id = self.auth_service.get_id_from_token(token=token)
       is_super_user = await self.user_repository.is_super_user(user_id=user_id)
       if not is_super_user:

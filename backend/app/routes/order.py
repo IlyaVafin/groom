@@ -20,7 +20,10 @@ async def create_order(request: Request,
     file_path = file_service.save_file(file=file)
     return await order_service.create_order(order=CreateOrder(nickname=nickname, photo=str(file_path), status="Новая"), token=access_token)
   except ValueError as e:
-    raise HTTPException(status_code=401, detail=str(e))
+    if "токен" in str(e):
+     raise HTTPException(status_code=401, detail=str(e))
+    raise HTTPException(status_code=400, detail=str(e))
+
   
 @order_router.get("/order")
 async def get_orders(request: Request, 
@@ -39,6 +42,8 @@ async def update_status(request: Request,
   try:
     is_uuid = UUID(id)
     access_token = request.cookies.get("access_token")
+    if not result_photo and status == "Услуга оказана":
+      raise HTTPException(status_code=400, detail="Картинка обязательна")
     if result_photo:
       file_path = file_service.save_file(file=result_photo)
       return await order_service.update_status(order_id=id, token=access_token, status=status, path_to_image=file_path)
