@@ -1,4 +1,7 @@
 import { useState, type SubmitEvent } from "react"
+import { useNavigate } from "react-router"
+import { regsiter } from "../api/register"
+import type { RegisterData } from "../types"
 import { validateFields } from "./validate"
 
 export const useSubmit = () => {
@@ -10,6 +13,8 @@ export const useSubmit = () => {
 		repeatPasswordError: "",
 		checkboxError: "",
 	})
+	const [apiError, setApiError] = useState("")
+	const navigate = useNavigate()
 	const [isChecked, setIsChecked] = useState(false)
 	function addError(errorMessage: string, field: string) {
 		setErrors(prev => ({ ...prev, [field]: errorMessage }))
@@ -18,30 +23,44 @@ export const useSubmit = () => {
 		setErrors(prev => ({ ...prev, [field]: "" }))
 	}
 
-	function submitRegisterForm(e: SubmitEvent<HTMLFormElement>) {
-		e.preventDefault()
-		const formData = new FormData(e.target)
-		const name = formData.get("name")?.toString() ?? ""
-		const login = formData.get("login")?.toString() ?? ""
-		const email = formData.get("email")?.toString() ?? ""
-		const password = formData.get("new-password")?.toString() ?? ""
-		console.log(password)
+	async function submitRegisterForm(e: SubmitEvent<HTMLFormElement>) {
+		try {
+			e.preventDefault()
+			const formData = new FormData(e.target)
+			const name = formData.get("name")?.toString() ?? ""
+			const login = formData.get("login")?.toString() ?? ""
+			const email = formData.get("email")?.toString() ?? ""
+			const password = formData.get("new-password")?.toString() ?? ""
+			const repeatPassword = formData.get("repeat-password")?.toString() ?? ""
 
-		const repeatPassword = formData.get("repeat-password")?.toString() ?? ""
-
-		const validate = validateFields(
-			name,
-			login,
-			email,
-			password,
-			repeatPassword,
-			isChecked,
-			resetError,
-			addError,
-		)
-		if (validate) {
-			alert("Все хорошо")
-			e.target.reset()
+			const validate = validateFields(
+				name,
+				login,
+				email,
+				password,
+				repeatPassword,
+				isChecked,
+				resetError,
+				addError,
+			)
+			if (validate) {
+				const userData: RegisterData = {
+					email: email.trim(),
+					fullName: name.trim(),
+					login: login.trim(),
+					password: password.trim(),
+					repeatPassword: repeatPassword.trim()
+				}
+				const response = await regsiter(userData)
+				if (typeof response !== "string") {
+					e.target.reset()
+					navigate("/login")
+				} else {
+					setApiError(response)
+				}
+			}
+		} catch (e: unknown) {
+			console.log(e)
 		}
 	}
 
@@ -63,5 +82,6 @@ export const useSubmit = () => {
 		submitRegisterForm,
 		setIsChecked,
 		isChecked,
+		apiError,
 	}
 }

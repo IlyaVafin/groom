@@ -1,8 +1,8 @@
 from repositories.user import UserRepository
 from schemas.user import CreateUser, AdminUser
 from services.auth import AuthService
-from core.config import Settings, get_settings
-from typing import Annotated
+from core.config import Settings
+
 class UserService():
   def __init__(self, user_repository: UserRepository, auth_service: AuthService, settings: Settings):
     self.user_repository = user_repository
@@ -10,6 +10,8 @@ class UserService():
     self.settings = settings
   async def create_user(self, user: CreateUser):
     try:
+      if user.password != user.repeat_password:
+        raise ValueError("Пароли не совпадают")
       hashed_password = self.auth_service.get_password_hash(user.password)
       return await self.user_repository.create_user(CreateUser(
       full_name=user.full_name, 

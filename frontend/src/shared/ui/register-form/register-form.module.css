@@ -84,6 +84,11 @@
 .errorCheckbox input::after {
   border: 1px solid red;
 }
+.apiError {
+	color: red;
+	text-align: center;
+	margin-top: 20px;
+}
 .checkboxField input:checked::before {
 	content: "";
 	width: 20px;

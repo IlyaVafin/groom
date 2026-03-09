@@ -14,6 +14,7 @@ export default function RegisterForm() {
 		repeatPasswordError,
 		setIsChecked,
 		submitRegisterForm,
+		apiError,
 		isChecked,
 	} = useSubmit()
 	return (
@@ -95,6 +96,7 @@ export default function RegisterForm() {
 					Зарегистрироваться
 					<MoveRight />
 				</Button>
+				{apiError && <p className={styles.apiError}>{apiError}</p>}
 			</Card>
 		</form>
 	)

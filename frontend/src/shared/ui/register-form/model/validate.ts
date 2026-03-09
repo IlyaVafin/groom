@@ -63,6 +63,7 @@ export function validateFields(
 		email.length > 0 &&
 		repeatPassword.length > 0 &&
 		password.length > 0 &&
+		repeatPassword === password &&
 		isChecked
 	)
 }
