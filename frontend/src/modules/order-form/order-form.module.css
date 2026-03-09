@@ -47,6 +47,10 @@
   flex: 1;
 }
 
+.submitting {
+  opacity: 0.5;
+}
+
 @media (max-width: 955px) {
   .orderForm {
     max-width: 100%;

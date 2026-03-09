@@ -1,15 +1,16 @@
 import { Circle } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useOrdersContext } from "../../../shared/context/orders/useOrdersContext"
 import { useUserContext } from "../../../shared/context/user/useUserContext"
 import Button from "../../../shared/ui/button/button"
 import Heading from "../../../shared/ui/heading/heading"
 import { deleteOrderRequest } from "../api/deleteOrderRequest"
 import { getOrders } from "../api/getOrders"
-import { OrderStatus, type Order } from "../types"
+import { OrderStatus } from "../types"
 import styles from "./orders.module.css"
 
 export default function Orders() {
-	const [orders, setOrders] = useState<Order[] | null>(null)
+  const {orders, setOrders} = useOrdersContext()
 	const { user } = useUserContext()
 	useEffect(() => {
 		async function validateOrders() {
@@ -19,7 +20,7 @@ export default function Orders() {
 			}
 		}
 		validateOrders()
-	}, [])
+	}, [setOrders])
 	async function deleteOrder(id: string) {
 		const deletedStatus = await deleteOrderRequest(id)
 		if (typeof deletedStatus !== "string") {

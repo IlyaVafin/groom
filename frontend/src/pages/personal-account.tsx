@@ -4,6 +4,7 @@ import Orders from "../modules/orders/ui/orders"
 import { useUserContext } from "../shared/context/user/useUserContext"
 import { useCheckUser } from "../shared/hooks/useCheckUser"
 import styles from "./pages.module.css"
+import HeaderPersonalAccount from "../modules/header-personal-account/header-personal-account"
 export default function PersonalAccountPage() {
 	const { getUser } = useCheckUser()
 	const { user } = useUserContext()
@@ -14,6 +15,7 @@ export default function PersonalAccountPage() {
 	}, [getUser, user])
 	return (
 		<main>
+      <HeaderPersonalAccount/>
 			<div className={styles.wrapperPersonalAccount}>
 				<OrderForm />
 				<Orders />

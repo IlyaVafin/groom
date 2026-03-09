@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react"
 import type { User } from "../../types"
-import { UserContext } from "./userContext"
+import { UserContext } from "./user-context"
 
 export interface UserContextType {
 	user: User | null

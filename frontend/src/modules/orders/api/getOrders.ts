@@ -1,6 +1,6 @@
 import { errorHandler } from "../../../shared/api/errorHandler"
 import { instance } from "../../../shared/api/instance"
-import type { Order } from "../types"
+import type { Order } from "../../../shared/types"
 
 export const getOrders = async (): Promise<Order[] | string> => {
 	try {

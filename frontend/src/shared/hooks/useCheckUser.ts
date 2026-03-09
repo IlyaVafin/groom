@@ -14,13 +14,7 @@ export const useCheckUser = () => {
 				updateUser(null)
 				navigate("/")
 			} else {
-				const userInfo = await getMe()
-				if (typeof userInfo !== "string") {
-					updateUser({
-						...userInfo,
-						superuser: userInfo.superuser === "False" ? false : true,
-					})
-				}
+				window.location.reload()
 			}
 		} else {
 			updateUser({
