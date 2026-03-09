@@ -1,4 +1,4 @@
-import { AxiosError } from "axios"
+import { errorHandler } from "../../../api/errorHandler"
 import { instance } from "../../../api/instance"
 import type { RegisterData, SuccessResponse } from "../types"
 
@@ -12,11 +12,7 @@ export const regsiter = async (
 		})
 		return response.data
 	} catch (e: unknown) {
-		if (e instanceof AxiosError) {
-			return e.response?.data.detail
-		} else if (e instanceof Error) {
-			return e.message
-		}
-		return "Unknown"
+		return errorHandler(e)
 	}
 }
+

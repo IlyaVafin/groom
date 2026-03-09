@@ -32,3 +32,8 @@ li {
 input {
 	outline: none;
 }
+
+.apiError {
+	color: red;
+	text-align: center;
+}

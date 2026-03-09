@@ -1,26 +1,13 @@
-import { useEffect, useState } from "react"
 import Button from "../../shared/ui/button/button"
 import Card from "../../shared/ui/card/card"
 import Heading from "../../shared/ui/heading/heading"
 import Input from "../../shared/ui/input/input"
 import styles from "./login-form.module.css"
-const loginRegex = /^[A-Za-z-]+$/
+import { useLogin } from "./model/useLogin"
 export default function LoginForm() {
-	const [login, setLogin] = useState("")
-	const [password, setPassword] = useState("")
-	const [disabled, setDisabled] = useState(true)
-	useEffect(() => {
-		function checkFields() {
-			if (!loginRegex.test(login) || !password.length) {
-				setDisabled(true)
-			} else {
-				setDisabled(false)
-			}
-		}
-		checkFields()
-	}, [login, password])
+	const {disabled, login, password, setLogin, setPassword, submitLogin, apiError} = useLogin()
 	return (
-		<form className={styles.loginForm}>
+		<form className={styles.loginForm} onSubmit={submitLogin}>
 			<Heading className={styles.heading} as='h1'>
 				Groomer
 			</Heading>
@@ -56,6 +43,7 @@ export default function LoginForm() {
 				>
 					Войти
 				</Button>
+				{apiError && <p className="apiError">{apiError}</p>}
 			</Card>
 		</form>
 	)

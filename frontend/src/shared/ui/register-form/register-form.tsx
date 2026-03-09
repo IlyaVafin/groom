@@ -4,7 +4,7 @@ import Card from "../card/card"
 import Input from "../input/input"
 import { useSubmit } from "./model/useSubmit"
 import styles from "./register-form.module.css"
-export default function RegisterForm() {
+export default function RegisterForm({ checkboxId }: { checkboxId: string }) {
 	const {
 		checkboxError,
 		emailError,
@@ -27,7 +27,7 @@ export default function RegisterForm() {
 							variant='white'
 							type='text'
 							id='full-name'
-              placeholder="Иван Иванов Иванович"
+							placeholder='Иван Иванов Иванович'
 							autoComplete='name'
 							name='name'
 						/>
@@ -35,7 +35,13 @@ export default function RegisterForm() {
 					</div>
 					<div className={styles.formField}>
 						<label htmlFor='login'>Логин</label>
-						<Input placeholder="Ivan" name='login' variant='white' type='text' id='login' />
+						<Input
+							placeholder='Ivan'
+							name='login'
+							variant='white'
+							type='text'
+							id='login'
+						/>
 						{loginError && <p className={styles.errorLabel}>{loginError}</p>}
 					</div>
 					<div className={styles.formField}>
@@ -44,7 +50,7 @@ export default function RegisterForm() {
 							variant='white'
 							type='email'
 							autoComplete='email'
-              placeholder="johndoe@gmail.com"
+							placeholder='johndoe@gmail.com'
 							id='email'
 							name='email'
 						/>
@@ -59,7 +65,7 @@ export default function RegisterForm() {
 								id='password'
 								autoComplete='new-password'
 								name='new-password'
-                placeholder="********"
+								placeholder='********'
 							/>
 							{passwordError && (
 								<p className={styles.errorLabel}>{passwordError}</p>
@@ -75,7 +81,9 @@ export default function RegisterForm() {
 								autoComplete='current-password'
 								name='repeat-password'
 							/>
-							{repeatPasswordError && <p className={styles.errorLabel}>{repeatPasswordError}</p>}
+							{repeatPasswordError && (
+								<p className={styles.errorLabel}>{repeatPasswordError}</p>
+							)}
 						</div>
 					</div>
 					<div
@@ -85,9 +93,9 @@ export default function RegisterForm() {
 							className={styles.checkbox}
 							onChange={e => setIsChecked(e.target.checked)}
 							type='checkbox'
-							id='personal-data'
+							id={checkboxId}
 						/>
-						<label htmlFor='personal-data'>
+						<label htmlFor={checkboxId}>
 							Я даю согласие на обработку <u>персональных данных</u>
 						</label>
 					</div>

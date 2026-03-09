@@ -12,14 +12,14 @@ export function validateFields(
 	addError: (errorMessage: string, field: string) => void,
 ) {
 	let notHasError = true
-	if (!nameRegex.test(name)) {
+	if (!nameRegex.test(name.trim())) {
 		addError("Только кирилические буквы и пробелы", "nameError")
 		notHasError = false
 	} else {
 		resetError("nameError")
 		notHasError = true
 	}
-	if (!loginRegex.test(login)) {
+	if (!loginRegex.test(login.trim())) {
 		console.log(login)
 
 		addError("Только латинские буквы и дефис", "loginError")
@@ -28,21 +28,21 @@ export function validateFields(
 		resetError("loginError")
 		notHasError = true
 	}
-	if (!emailRegex.test(email)) {
+	if (!emailRegex.test(email.trim())) {
 		addError("Неккоректный email адрес", "emailError")
 		notHasError = false
 	} else {
 		resetError("emailError")
 		notHasError = true
 	}
-	if (password !== repeatPassword) {
+	if (password.trim() !== repeatPassword.trim()) {
 		addError("Пароли не совпадают", "repeatPasswordError")
 		notHasError = false
 	} else {
 		resetError("repeatPasswordError")
 		notHasError = true
 	}
-	if (!password.length) {
+	if (!password.trim().length) {
 		addError("Пароль не может быть пустым", "passwordError")
 		notHasError = false
 	} else {
