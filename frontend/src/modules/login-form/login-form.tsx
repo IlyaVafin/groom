@@ -31,7 +31,7 @@ export default function LoginForm() {
 						onChange={e => setPassword(e.target.value)}
 						className={styles.formInput}
 						variant='white'
-						placeholder='********'
+						placeholder='••••••••'
 						type='password'
 						id='password'
 					/>

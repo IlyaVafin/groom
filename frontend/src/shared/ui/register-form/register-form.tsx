@@ -65,7 +65,7 @@ export default function RegisterForm({ checkboxId }: { checkboxId: string }) {
 								id='password'
 								autoComplete='new-password'
 								name='new-password'
-								placeholder='********'
+								placeholder='••••••••'
 							/>
 							{passwordError && (
 								<p className={styles.errorLabel}>{passwordError}</p>
@@ -77,7 +77,7 @@ export default function RegisterForm({ checkboxId }: { checkboxId: string }) {
 								variant='white'
 								id='confirm-password'
 								type='password'
-								placeholder='********'
+								placeholder='••••••••'
 								autoComplete='current-password'
 								name='repeat-password'
 							/>
