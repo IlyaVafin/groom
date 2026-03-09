@@ -31,18 +31,22 @@ export default function Header() {
 										<Link to='/personal-account'>Личный кабинет</Link>
 									</li>
 								)}
-								<li className={styles.headerItem}>
-									<Link to='/login'>Войти</Link>
-								</li>
-								<li className={`${styles.headerItem} ${styles.signUp}`}>
-									<Button
-										className={`${styles.signUp}`}
-										variant='black'
-										onClick={() => setShowModal(true)}
-									>
-										Зарегистрироваться
-									</Button>
-								</li>
+								{!user && (
+									<>
+										<li className={styles.headerItem}>
+											<Link to='/login'>Войти</Link>
+										</li>
+										<li className={`${styles.headerItem} ${styles.signUp}`}>
+											<Button
+												className={`${styles.signUp}`}
+												variant='black'
+												onClick={() => setShowModal(true)}
+											>
+												Зарегистрироваться
+											</Button>
+										</li>
+									</>
+								)}
 							</ul>
 						</nav>
 						<div className={styles.headerContacts}>

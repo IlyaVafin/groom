@@ -1,5 +1,5 @@
 import { Circle } from "lucide-react"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useOrdersContext } from "../../../shared/context/orders/useOrdersContext"
 import { useUserContext } from "../../../shared/context/user/useUserContext"
 import Button from "../../../shared/ui/button/button"
@@ -8,9 +8,14 @@ import { deleteOrderRequest } from "../api/deleteOrderRequest"
 import { getOrders } from "../api/getOrders"
 import { OrderStatus } from "../types"
 import styles from "./orders.module.css"
+import { updateOrder } from "../api/updateOrder"
 
 export default function Orders() {
-  const {orders, setOrders} = useOrdersContext()
+	const [status, setStatus] = useState("")
+	const [currentOrder, setCurrentOrder] = useState("")
+	const [apiError, setApiError] = useState("")
+	const [file, setFile] = useState<File | undefined>()
+	const { orders, setOrders } = useOrdersContext()
 	const { user } = useUserContext()
 	useEffect(() => {
 		async function validateOrders() {
@@ -26,6 +31,16 @@ export default function Orders() {
 		if (typeof deletedStatus !== "string") {
 			const newOrders = orders?.filter(order => order.id !== id)
 			setOrders(newOrders ?? [])
+		}
+	}
+
+	async function updateStatus(id: string, status: string) {
+		if (status === OrderStatus.READY) {
+			const response = await updateOrder(id, status, file)
+			if (typeof response === "string") setApiError(response)
+		} else {
+			const response = await updateOrder(id, status)
+			if (typeof response === "string") setApiError(response)
 		}
 	}
 	return (
@@ -56,12 +71,42 @@ export default function Orders() {
 							{order.status}
 						</span>
 						{user?.superuser && (
-							<select>
-								<option value='Обработка данных'>Обработка данных</option>
-								<option value='Обработка данных'>Услуга оказана</option>
-							</select>
+							<>
+								<select
+									onChange={async e => {
+										const value = e.target.value
+										setStatus(value)
+										setCurrentOrder(order.id)
+										if (value === "Услуга оказана") return
+										await updateStatus(order.id, value)
+									}}
+									defaultValue={order.status}
+									className={styles.orderSelect}
+								>
+									<option value='Новая'>Новая</option>
+									<option value='Обработка данных'>Обработка данных</option>
+									<option value='Услуга оказана'>Услуга оказана</option>
+								</select>
+                {apiError && order.id === currentOrder && <p>{apiError}</p>}
+								{status === OrderStatus.READY && order.id === currentOrder && (
+									<form
+										onSubmit={async e => {
+											e.preventDefault()
+											await updateStatus(order.id, "Услуга оказана")
+										}}
+									>
+										<input
+											type='file'
+											onChange={e => setFile(e.target.files?.[0])}
+										/>
+										<Button className={styles.updateButton} variant='black'>
+											Обновить статус
+										</Button>
+									</form>
+								)}
+							</>
 						)}
-						{!user?.superuser && order.status === OrderStatus.NEW && (
+						{user?.superuser === false && order.status === OrderStatus.NEW && (
 							<Button
 								onClick={async () => await deleteOrder(order.id)}
 								className={styles.deleteButton}

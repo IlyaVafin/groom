@@ -6,3 +6,9 @@
   flex-wrap: wrap;
   margin: 0 auto;
 }
+
+.groomMain {
+  max-width: 1600px;
+  margin: 0 auto;
+  margin-top: 24px;
+}
