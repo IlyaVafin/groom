@@ -24,3 +24,4 @@ dist-ssr
 pgdata
 __pycache__
 poetry.lock
+venv
