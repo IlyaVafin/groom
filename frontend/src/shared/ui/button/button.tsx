@@ -3,7 +3,7 @@ import { Link } from "react-router"
 import styles from "./button.module.css"
 interface ButtonProps extends ButtonHTMLAttributes<HTMLElement> {
 	children: ReactNode
-	variant: "black" | "icon"
+	variant: "black" | "icon" | "red"
 	href?: string
 }
 export default function Button({
@@ -13,7 +13,7 @@ export default function Button({
 	className = "",
 	...rest
 }: ButtonProps) {
-	const classNames = `${variant === "black" ? `${styles.blackButton}` : variant === "icon" ? `${styles.iconButton}` : ""} ${className}`
+	const classNames = `${variant === "black" ? `${styles.blackButton}` : variant === "icon" ? `${styles.iconButton}` : variant === "red" ? `${styles.redButton}` : ""} ${className}`
 	return (
 		<>
 			{href ? (

@@ -60,7 +60,7 @@ class OrderRepository:
       if not order:
         raise ValueError("Заявка не найдена")
       if order.status == "Новая":
-        self.session.delete(order)
+        await self.session.delete(order)
         await self.session.commit()
         return {"message": "Заявка успешно удалена"}
       else:

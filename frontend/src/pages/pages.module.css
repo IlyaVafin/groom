@@ -1,0 +1,8 @@
+.wrapperPersonalAccount {
+  display: flex;
+  gap: 20px;
+  max-width: 1600px;
+  padding: 24px 10px;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}

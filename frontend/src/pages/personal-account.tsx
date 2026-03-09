@@ -1,8 +1,9 @@
 import { useEffect } from "react"
-import { useCheckUser } from "../shared/hooks/useCheckUser"
+import OrderForm from "../modules/order-form/order-form"
 import Orders from "../modules/orders/ui/orders"
 import { useUserContext } from "../shared/context/user/useUserContext"
-
+import { useCheckUser } from "../shared/hooks/useCheckUser"
+import styles from "./pages.module.css"
 export default function PersonalAccountPage() {
 	const { getUser } = useCheckUser()
 	const { user } = useUserContext()
@@ -13,7 +14,10 @@ export default function PersonalAccountPage() {
 	}, [getUser, user])
 	return (
 		<main>
-			<Orders />
+			<div className={styles.wrapperPersonalAccount}>
+				<OrderForm />
+				<Orders />
+			</div>
 		</main>
 	)
 }

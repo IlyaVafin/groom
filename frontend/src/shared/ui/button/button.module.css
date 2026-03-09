@@ -3,7 +3,12 @@
   color: var(--color-white);
   border: none;
 }
-
+.redButton {
+  background: rgb(196, 0, 0);
+  border: none;
+  color: var(--color-white);
+  
+}
 .iconButton {
   background: none;
   border: none;

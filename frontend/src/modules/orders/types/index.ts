@@ -7,3 +7,9 @@ export interface Order {
 	id: string 
 	created_at: string
 }
+
+export enum OrderStatus {
+	NEW = "Новая",
+	PROCESSING = "Обработка данных",
+	READY = "Услуга оказана",
+}
