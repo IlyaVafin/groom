@@ -20,12 +20,17 @@ class OrderRepository:
     }
     
   async def get_user_orders(self, user_id: str):
-    stmt = await self.session.execute(select(Order).where(Order.user_id == user_id))
+    stmt = await self.session.execute(select(Order).where(Order.user_id == user_id).order_by(Order.created_at.desc()))
     orders = stmt.scalars().all()
     return orders
   
   async def get_all_orders(self):
     stmt = await self.session.execute(select(Order))
+    orders = stmt.scalars().all()
+    return orders
+  
+  async def get_finished_orders(self, user_id):
+    stmt = await self.session.execute(select(Order).limit(4).where(Order.status == "Услуга оказана" and Order.user_id == user_id))
     orders = stmt.scalars().all()
     return orders
   
@@ -67,6 +72,7 @@ class OrderRepository:
         raise ValueError("Заявка не может быть удалена")
     except ValueError as e:
       raise ValueError(str(e))
+    
     
 
     

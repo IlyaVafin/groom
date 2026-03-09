@@ -25,3 +25,4 @@ pgdata
 __pycache__
 poetry.lock
 .env
+img/*

@@ -44,6 +44,10 @@ class OrderService:
     except ValueError as e:
       raise ValueError(str(e))
   
+  async def get_finished_orders(self, token: str):
+    user_id = self.auth_service.get_id_from_token(token=token)
+    return await self.order_repository.get_finished_orders(user_id=user_id)
+  
   async def delete_order(self, order_id: str, token: str):
     try:
       user_id = self.auth_service.get_id_from_token(token=token)

@@ -71,6 +71,16 @@ async def update_status(request: Request,
     if "badly" in error:
       raise HTTPException(status_code=404, detail="Неккоректный UUID")
     raise HTTPException(status_code=400, detail=error)
+
+@order_router.get("/order/finished")
+async def get_finished_orders(order_service: Annotated[OrderService, Depends(get_order_service)],
+                              request: Request):
+  try:
+    access_token = request.cookies.get("access_token")
+    return await order_service.get_finished_orders(token=access_token)
+  except ValueError as e:
+    raise HTTPException(status_code=400, detail=str(e))
+
   
 @order_router.delete("/order/{id}")
 async def delete_order(order_service: Annotated[OrderService, Depends(get_order_service)], 

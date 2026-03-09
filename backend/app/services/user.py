@@ -28,7 +28,6 @@ class UserService():
       await self.user_repository.create_user(AdminUser(full_name="Админ", login=login, email="workemail@gmail.com", password=hashed_password), superuser=True)
       return {"message": "Администратор создан"}
       
-  
     
   async def is_super_user(self, token: str | bytes):
     try:
