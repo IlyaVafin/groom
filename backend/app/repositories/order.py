@@ -28,6 +28,11 @@ class OrderRepository:
     stmt = await self.session.execute(select(Order))
     orders = stmt.scalars().all()
     return orders
+  
+  async def get_orders_images(self):
+    stmt = await self.session.execute(select(Order.result_photo).where(Order.result_photo != None))
+    images = stmt.scalars().all()
+    return images
 
   
   async def update_status(self, order_id: str, status: str, path_to_image: str):

@@ -36,6 +36,10 @@ async def get_orders(request: Request,
   except ValueError as e:
     if "токен" in str(e).lower():
       raise HTTPException(status_code=401, detail=str(e))
+
+@order_router.get("/orders/images")
+async def get_orders_images(order_service: Annotated[OrderService, Depends(get_order_service)]):
+  return await order_service.get_images()
     
   
 @order_router.patch("/order/{id}")

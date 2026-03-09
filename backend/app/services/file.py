@@ -7,7 +7,7 @@ class FileService():
     try:
       if file.size > 2097152:
         raise ValueError("Картинка слишком большая")
-      if file.content_type != ".jpg" or file.content_type != ".bmp":
+      if file.content_type != "image/jpeg" and file.content_type != "image/bmp":
         raise ValueError("Неккоректный формат картинки, используйте jpg или bmp")
       file_extension = os.path.splitext(file.filename)[1]
       unique_filename = f"{uuid4()}{file_extension}"

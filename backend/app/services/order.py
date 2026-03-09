@@ -27,6 +27,9 @@ class OrderService:
     else:
       orders = await self.order_repository.get_user_orders(user_id=user_id)
       return orders
+    
+  async def get_images(self):
+    return await self.order_repository.get_orders_images()
 
   async def update_status(self, order_id: str, token: str, status: str, path_to_image: str | None = None):
     try:
