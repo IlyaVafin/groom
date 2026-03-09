@@ -1,21 +1,25 @@
 .finishedList {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  gap: 16px; 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: none;
+	gap: 16px;
 }
 
 .heading {
-  text-align: center;
-  margin-bottom: 24px;
-  margin-top: 120px;
+	text-align: center;
+	margin-bottom: 24px;
+	margin-top: 120px;
 }
 
 .orderItem {
-  padding: 16px;
+	padding: 16px;
 }
 
 .orderItem img {
-  border-radius: var(--radius-sm);
+	border-radius: var(--radius-sm);
+}
+
+.error {
+	text-align: center;
 }

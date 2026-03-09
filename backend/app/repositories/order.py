@@ -30,12 +30,12 @@ class OrderRepository:
     return orders
   
   async def get_finished_orders(self, user_id):
-    stmt = await self.session.execute(select(Order).limit(4).where(Order.status == "Услуга оказана" and Order.user_id == user_id))
+    stmt = await self.session.execute(select(Order).limit(4).where(Order.status == "Услуга оказана", Order.user_id == user_id))
     orders = stmt.scalars().all()
     return orders
   
   async def get_orders_images(self):
-    stmt = await self.session.execute(select(Order.result_photo).where(Order.result_photo != None))
+    stmt = await self.session.execute(select(Order.result_photo).limit(8).where(Order.result_photo != None))
     images = stmt.scalars().all()
     return images
 

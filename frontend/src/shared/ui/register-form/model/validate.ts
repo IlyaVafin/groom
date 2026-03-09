@@ -64,6 +64,9 @@ export function validateFields(
 		repeatPassword.length > 0 &&
 		password.length > 0 &&
 		repeatPassword === password &&
+		loginRegex.test(login) && 
+		nameRegex.test(name) && 
+		emailRegex.test(email) && 
 		isChecked
 	)
 }

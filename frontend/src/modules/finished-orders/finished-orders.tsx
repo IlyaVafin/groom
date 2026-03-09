@@ -16,7 +16,7 @@ export default function FinishedOrders() {
 	return (
 		<section>
 			<Heading className={styles.heading} as='h2'>Последние выполненые заявки</Heading>
-			{orders?.length === 0 && <p>Заявок нет x_x</p>}
+			{orders?.length === 0 && <p className={styles.error}>Заявок нет x_x</p>}
 			<ul className={styles.finishedList}>
 				{orders?.map(o => (
 					<li key={o.id}>
