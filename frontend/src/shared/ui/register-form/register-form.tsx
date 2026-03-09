@@ -4,7 +4,7 @@ import Card from "../card/card"
 import Input from "../input/input"
 import { useSubmit } from "./model/useSubmit"
 import styles from "./register-form.module.css"
-export default function RegisterForm({ checkboxId }: { checkboxId: string }) {
+export default function RegisterForm({ checkboxId, prefix }: { checkboxId: string, prefix: string }) {
 	const {
 		checkboxError,
 		emailError,
@@ -22,11 +22,11 @@ export default function RegisterForm({ checkboxId }: { checkboxId: string }) {
 			<Card className={styles.formCard}>
 				<div className={styles.formFields}>
 					<div className={styles.formField}>
-						<label htmlFor='full-name'>ФИО</label>
+						<label htmlFor={`${prefix}-full-name`}>ФИО</label>
 						<Input
 							variant='white'
 							type='text'
-							id='full-name'
+							id={`${prefix}-full-name`}
 							placeholder='Иван Иванов Иванович'
 							autoComplete='name'
 							name='name'
@@ -34,35 +34,35 @@ export default function RegisterForm({ checkboxId }: { checkboxId: string }) {
 						{nameError && <p className={styles.errorLabel}>{nameError}</p>}
 					</div>
 					<div className={styles.formField}>
-						<label htmlFor='login'>Логин</label>
+						<label htmlFor={`${prefix}-login`}>Логин</label>
 						<Input
 							placeholder='Ivan'
 							name='login'
 							variant='white'
 							type='text'
-							id='login'
+							id={`${prefix}-login`}
 						/>
 						{loginError && <p className={styles.errorLabel}>{loginError}</p>}
 					</div>
 					<div className={styles.formField}>
-						<label htmlFor='email'>Почта</label>
+						<label htmlFor={`${prefix}-email`}>Почта</label>
 						<Input
 							variant='white'
 							type='email'
 							autoComplete='email'
 							placeholder='johndoe@gmail.com'
-							id='email'
+							id={`${prefix}-email`}
 							name='email'
 						/>
 						{emailError && <p className={styles.errorLabel}>{emailError}</p>}
 					</div>
 					<div className=''>
 						<div className={styles.formField}>
-							<label htmlFor='password'>Пароль</label>
+							<label htmlFor={`${prefix}-password`}>Пароль</label>
 							<Input
 								variant='white'
 								type='password'
-								id='password'
+								id={`${prefix}-password`}
 								autoComplete='new-password'
 								name='new-password'
 								placeholder='••••••••'
@@ -72,10 +72,10 @@ export default function RegisterForm({ checkboxId }: { checkboxId: string }) {
 							)}
 						</div>
 						<div className={`${styles.formField} ${styles.confirmPassword}`}>
-							<label htmlFor='confirm-password'>Подтвердите пароль</label>
+							<label htmlFor={`${prefix}-confirm-password`}>Подтвердите пароль</label>
 							<Input
 								variant='white'
-								id='confirm-password'
+								id={`${prefix}-confirm-password`}
 								type='password'
 								placeholder='••••••••'
 								autoComplete='current-password'

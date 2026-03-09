@@ -15,7 +15,7 @@ export default function FormBlock({ isModal = false }: { isModal?: boolean }) {
 					</Heading>
 				)}
 				<div className={styles.formContent}>
-					<RegisterForm checkboxId="personal-data"/>
+					<RegisterForm prefix="footer" checkboxId="personal-data"/>
 				</div>
 			</Container>
 		</section>

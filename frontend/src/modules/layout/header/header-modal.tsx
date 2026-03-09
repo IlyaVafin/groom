@@ -6,7 +6,7 @@ export default function HeaderModal({onClose}: {onClose: () => void}) {
 	return (
 		<>
 			<div  className={styles.headerFormModal}>
-				<RegisterForm checkboxId="personal-data-header"/>
+				<RegisterForm prefix="modal" checkboxId="personal-data-header"/>
 				<Button onClick={onClose} className={styles.closeForm} variant='icon'>
 					<X height={24} width={24} />
 				</Button>
