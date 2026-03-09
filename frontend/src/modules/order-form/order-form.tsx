@@ -6,6 +6,7 @@ import Input from "../../shared/ui/input/input"
 import styles from "./order-form.module.css"
 import { sendOrder } from "./api/send-order"
 import { useOrdersContext } from "../../shared/context/orders/useOrdersContext"
+import InputFile from "../../shared/ui/input-file/input-file"
 export default function OrderForm() {
 	const [nickname, setNickname] = useState("")
 	const [photo, setPhoto] = useState<File | undefined>(undefined)
@@ -21,7 +22,7 @@ export default function OrderForm() {
 					if (prev) {
 						return [...prev, response]
 					}
-          return [response]
+					return [response]
 				})
 			}
 		} finally {
@@ -44,15 +45,17 @@ export default function OrderForm() {
 					/>
 				</div>
 				<div className={styles.fileWrapper}>
-					<input
+					<InputFile
+						label={
+							<label htmlFor='photo'>
+								Фотография <br /> максимум 2МБ
+							</label>
+						}
 						onChange={e => setPhoto(e.target.files?.[0])}
 						accept='.jpg, .bmp'
 						type='file'
 						id='photo'
 					/>
-					<label htmlFor='photo'>
-						Фотография <br /> максимум 2МБ
-					</label>
 				</div>
 				<Button
 					disabled={isSubmitted}

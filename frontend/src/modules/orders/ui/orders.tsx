@@ -9,6 +9,7 @@ import { getOrders } from "../api/getOrders"
 import { OrderStatus } from "../types"
 import styles from "./orders.module.css"
 import { updateOrder } from "../api/updateOrder"
+import InputFile from "../../../shared/ui/input-file/input-file"
 
 export default function Orders() {
 	const [status, setStatus] = useState("")
@@ -35,19 +36,31 @@ export default function Orders() {
 	}
 
 	async function updateStatus(id: string, status: string) {
+		let response
 		if (status === OrderStatus.READY) {
-			const response = await updateOrder(id, status, file)
+			response = await updateOrder(id, status, file)
 			if (typeof response === "string") setApiError(response)
 		} else {
-			const response = await updateOrder(id, status)
+			response = await updateOrder(id, status)
 			if (typeof response === "string") setApiError(response)
+		}
+		if (typeof response !== "string") {
+			setOrders(prev => {
+				if (prev) {
+					return prev.map(o => (o.id === id ? { ...o, status: status } : o))
+				}
+				return []
+			})
 		}
 	}
 	return (
 		<ul className={styles.orderList}>
 			{orders &&
 				orders.map(order => (
-					<li className={`${styles.order}`} key={order.id}>
+					<li
+						className={`${styles.order} ${order.status === OrderStatus.READY ? styles.disabled : ""}`}
+						key={order.id}
+					>
 						<div
 							className={order.status === OrderStatus.READY ? styles.ready : ""}
 						></div>
@@ -74,6 +87,7 @@ export default function Orders() {
 							<>
 								<select
 									onChange={async e => {
+										setApiError("")
 										const value = e.target.value
 										setStatus(value)
 										setCurrentOrder(order.id)
@@ -87,7 +101,7 @@ export default function Orders() {
 									<option value='Обработка данных'>Обработка данных</option>
 									<option value='Услуга оказана'>Услуга оказана</option>
 								</select>
-                {apiError && order.id === currentOrder && <p>{apiError}</p>}
+								{apiError && order.id === currentOrder && <p>{apiError}</p>}
 								{status === OrderStatus.READY && order.id === currentOrder && (
 									<form
 										onSubmit={async e => {
@@ -95,9 +109,12 @@ export default function Orders() {
 											await updateStatus(order.id, "Услуга оказана")
 										}}
 									>
-										<input
-											type='file'
+										<InputFile
+											id='result-photo'
 											onChange={e => setFile(e.target.files?.[0])}
+											label={
+												<label htmlFor='result-photo'>Загрузить фото</label>
+											}
 										/>
 										<Button className={styles.updateButton} variant='black'>
 											Обновить статус

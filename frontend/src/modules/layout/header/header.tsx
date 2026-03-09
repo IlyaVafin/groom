@@ -28,7 +28,15 @@ export default function Header() {
 							<ul className={styles.headerList}>
 								{user && (
 									<li className={styles.headerItem}>
-										<Link to='/personal-account'>Личный кабинет</Link>
+										<Link
+											to={
+												user.superuser === true
+													? "/groom"
+													: "/personal-account"
+											}
+										>
+											Личный кабинет
+										</Link>
 									</li>
 								)}
 								{!user && (

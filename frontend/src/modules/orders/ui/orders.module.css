@@ -21,9 +21,15 @@
 	position: relative;
 }
 
+.disabled {
+  pointer-events: none;
+}
+
 .updateButton {
   padding: 8px;
+  margin-top: 8px;
 }
+
 
 .orderStatus {
 	display: flex;
@@ -33,7 +39,7 @@
 }
 
 .orderSelect {
-	margin-top: 8px;
+	margin: 8px 0;
 }
 
 .deleteButton {

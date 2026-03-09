@@ -26,26 +26,7 @@
   padding-left: 24px;
 }
 
-.fileWrapper {
-  border: 1px dashed var(--color-orange);
-  max-width: 500px;
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 50px 20px;
-}
-.fileWrapper input {
-  opacity: 0;
-  position: absolute;
-  visibility: hidden;
-}
 
-.fileWrapper label {
-  display: block;
-  text-align: center;
-  flex: 1;
-}
 
 .submitting {
   opacity: 0.5;
