@@ -1,6 +1,7 @@
 from core.db import AsyncSession
 from core.models import Order
 from schemas.order import CreateOrder
+from sqlalchemy import select
 class OrderRepository:
   def __init__(self, session: AsyncSession):
     self.session = session
@@ -16,3 +17,28 @@ class OrderRepository:
       "photo": order_db.photo,
       "status": order_db.status
     }
+  
+  async def update_status(self, order_id: str, status: str, path_to_image: str):
+    try:
+      order = await self.get_order_by_id(order_id=order_id)
+      if not order:
+        raise ValueError("Заказ не найден")
+      current_status = order.status
+      if current_status == 'Услуга оказана':
+        raise ValueError("Изменение статуса заявки невозможно")
+      if status == "Услуга оказана":
+        order.result_photo = path_to_image
+      order.status = status
+      await self.session.commit()
+      await self.session.refresh(order)
+      return order
+    except ValueError as e:
+      raise ValueError(str(e))
+
+    
+  async def get_order_by_id(self, order_id: str):
+      stmt = await self.session.execute(select(Order).where(Order.id == order_id))
+      order = stmt.scalar_one_or_none()
+      return order
+    
+  

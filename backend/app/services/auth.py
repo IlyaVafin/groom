@@ -50,19 +50,18 @@ class AuthService():
       raise ValueError("Невалидный токен")
     except ExpiredSignatureError:
       raise ValueError("Токен истек")
-  
-  # def verify_access_token(self, token: str | byte):
-  #   try:
-  #     payload = jwt.decode
     
   
-  async def refresh_access_token(self, refresh_token: str, access_token: str):
+  async def refresh_access_token(self, refresh_token: str):
      try:
        await self.verify_refresh_token(refresh_token)
-       payload = jwt.decode(jwt=access_token, 
+       payload = jwt.decode(jwt=refresh_token, 
                             key=get_settings().secret_key.get_secret_value(), 
-                            algorithms=[get_settings().algorithm], options={"verify_exp": False})
-       new_access_token = self.create_access_token(payload)
+                            algorithms=[get_settings().algorithm])
+       user_id = payload.get("id")
+       user_login = payload.get("login")
+       superuser = payload.get("superuser")
+       new_access_token = self.create_access_token({"id": user_id, "login": user_login, "superuser": superuser})
        return new_access_token
      except ValueError as e:
       return ValueError(str(e))
@@ -78,11 +77,7 @@ class AuthService():
                          algorithms=[get_settings().algorithm])
     return payload
   
-  def is_super_user(self, token: str | bytes):
-    payload =  jwt.decode(jwt=token, 
-                         key=get_settings().secret_key.get_secret_value(), 
-                         algorithms=[get_settings().algorithm])
-    return bool(payload.get("superuser"))
+
   
   def verify_password(self, plain_password, hashed_password):
     return self.password_hash.verify(password=plain_password, hash=hashed_password)

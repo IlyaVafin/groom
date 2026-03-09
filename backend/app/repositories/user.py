@@ -5,8 +5,10 @@ from sqlalchemy import select
 class UserRepository:
   def __init__(self, session: AsyncSession):
     self.session = session 
-  async def create_user(self, user: CreateUser):
-    user_db = User(full_name=user.full_name, login=user.login, email=user.email, password=user.password, superuser=False)
+    
+    
+  async def create_user(self, user: CreateUser, superuser: bool):
+    user_db = User(full_name=user.full_name, login=user.login, email=user.email, password=user.password, superuser=superuser)
     self.session.add(user_db)
     await self.session.commit()
     await self.session.refresh(user_db)
@@ -28,5 +30,12 @@ class UserRepository:
         }
       except ValueError as e:
         raise ValueError(str(e))
+  
+  async def is_super_user(self, user_id):
+    stmt = await self.session.execute(select(User.superuser).where(User.id == user_id))
+    is_super_user = stmt.scalar_one_or_none()
+    if type(is_super_user) == None:
+      raise ValueError("Пользователь не найден")
+    return is_super_user
     
      

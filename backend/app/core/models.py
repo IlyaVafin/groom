@@ -28,6 +28,7 @@ class Order(Base):
   nickname: Mapped[str] = mapped_column(nullable=False, index=True)
   result_photo: Mapped[Optional[str]]
   photo: Mapped[str] = mapped_column(nullable=False)
+  created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
   user_id: Mapped[UUID] = mapped_column(ForeignKey("users.id"))
   user: Mapped["User"] = relationship(back_populates="orders")
   

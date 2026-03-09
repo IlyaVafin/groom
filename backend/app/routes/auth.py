@@ -5,7 +5,7 @@ from schemas.user import LoginUser
 from depends import get_auth_service
 auth_router = APIRouter()
 
-@auth_router.post("/login")
+@auth_router.post("/login", status_code=201)
 async def login(auth_serivce: Annotated[AuthService, Depends(get_auth_service)], 
                 user_data: LoginUser,
                 response: Response):
@@ -27,16 +27,16 @@ async def get_me(request: Request, auth_service: Annotated[AuthService, Depends(
     except ValueError as e:
       raise HTTPException(status_code=401, detail=str(e))
     
-@auth_router.post("/refresh")
+@auth_router.post("/refresh", status_code=201)
 async def refresh_access_token(request: Request, 
                                response: Response,
                                auth_service: Annotated[AuthService, Depends(get_auth_service)]):
   try:
     refresh_token = request.cookies.get("refresh_token")
-    access_token = request.cookies.get("access_token")
     await auth_service.verify_refresh_token(refresh_token)
-    new_token = await auth_service.refresh_access_token(refresh_token=refresh_token, access_token=access_token)
-    response.set_cookie("access_token", new_token)
+    new_token = await auth_service.refresh_access_token(refresh_token=refresh_token)
+    response.set_cookie("access_token", new_token, httponly=True)
+    return {"message": "Токен успешно обновлен"}
   except ValueError as e:
     raise HTTPException(status_code=401, detail=str(e))
   

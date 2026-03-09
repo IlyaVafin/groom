@@ -9,6 +9,12 @@ class CreateUser(Base):
   password: str 
   repeat_password: str
   
+class AdminUser(Base):
+  full_name: Annotated[str, Field(pattern= r'^[а-яА-ЯёЁ\s]+$')] = "Иван Иванов Иванович"
+  login: Annotated[str, Field(pattern=r'^[a-zA-Z\-]+$')] = "Login"
+  email: EmailStr
+  password: str 
+  
 class LoginUser(Base):
   login: Annotated[str, Field(pattern=r'^[a-zA-Z\-]+$')] = "Login"
   password: str
